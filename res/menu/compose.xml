@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    <item
+        android:id="@+id/action_back"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:onClick="onActionBack"
+        android:icon="@drawable/ic_action_back"
+        android:title="@string/action_back"/>
+    
+    <item
+        android:id="@+id/action_tweet"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:onClick="onActionTweet"
+        android:title="@string/action_tweet"/>
+
+</menu>

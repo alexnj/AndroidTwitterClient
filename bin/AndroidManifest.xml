@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codepath.apps.twitterclient"
+    package="com.alexnj.twitterclient"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
     <application
         android:name="com.alexnj.twitterclient.TwitterClientApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -25,10 +25,11 @@
             android:value="1" />
 
         <activity
-            android:name="com.alexnj.twitterclient.LoginActivity"
+            android:name="com.alexnj.twitterclient.activities.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -43,8 +44,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.alexnj.twitterclient.TimelineActivity"
+            android:name="com.alexnj.twitterclient.activities.TimelineActivity"
             android:label="@string/title_activity_timeline" >
+        </activity>
+        <activity
+            android:name="com.alexnj.twitterclient.activities.ComposeActivity"
+            android:label="@string/title_activity_compose" >
         </activity>
     </application>
 

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alexnj.twitterclient.models.Tweet;
-import com.codepath.apps.twitterclient.R;
+import com.alexnj.twitterclient.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetsAdapter extends ArrayAdapter<Tweet> {

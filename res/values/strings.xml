@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Rest Client Template</string>
+    <string name="app_name">AndroidTwitterClient</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_photos">Flickr Photos</string>
+    <string name="action_tweet">Post</string>
+    <string name="action_compose">Compose</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_back">Back</string>
     <string name="login_label">Log in</string>
-    <string name="title_activity_timeline">TimelineActivity</string>
+    
+    <string name="tweet_hint">What\'s your update?</string>
+    
+    <string name="error_empty_tweet">Oops! Tweet is empty.</string>
+    <string name="error_post_failure">Couldn\'t post the tweet. Try again later.</string>
+    
+    <string name="title_activity_compose">Compose tweet</string>
+    <string name="title_activity_timeline">Your timeline</string>
 
 </resources>
