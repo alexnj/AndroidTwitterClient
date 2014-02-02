@@ -33,25 +33,30 @@ public class TimelineActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline);
-		
 		setupTabs();
-//		refreshTimeline();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.timeline, menu);
+		getMenuInflater().inflate(R.menu.timeline, menu);
 		return true;
 	}
 	
-	public void onClickCompose(MenuItem mi) {
+	public void onClickCompose() {
 		Intent i = new Intent(this, ComposeActivity.class);
 		startActivityForResult(i,COMPOSE_INTENT);
 	}
 	
-	public void onClickRefresh(MenuItem mi) {
-//		refreshTimeline();
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.action_compose:
+	        	onClickCompose();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	@Override
@@ -59,11 +64,16 @@ public class TimelineActivity extends ActionBarActivity {
 		switch(requestCode) {
 			case COMPOSE_INTENT:
 				if(resultCode==RESULT_OK) {
-//					refreshTimeline(); 
+					refreshTimeline(); 
 				}
 				break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	public void refreshTimeline() {
+		TweetListFragment f = (TweetListFragment) getSupportFragmentManager().findFragmentByTag(getSupportActionBar().getSelectedTab().getTag().toString());
+        f.refreshTimeline();
 	}
 	
     private void setupTabs() {

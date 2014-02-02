@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,11 +26,38 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 abstract public class TweetListFragment extends Fragment {
 	protected JsonHttpResponseHandler refreshHandler = null;
-	
+
 	private ListView lvTimeline = null;
 	protected TweetsAdapter adapter = null;
 	protected ArrayList<Tweet> tweets = null; 
 	protected EndlessScrollListener scrollListener;
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.action_refresh:
+	            refreshTimeline();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	public void clearList() {
+		scrollListener.reset();
+		tweets.clear();
+		adapter.notifyDataSetChanged();
+	}
+	
+	public void refreshTimeline() {
+		loadMore(0);
+	}
+	
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.tweet_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }	
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +83,9 @@ abstract public class TweetListFragment extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
+		
 		
 		tweets = new ArrayList<Tweet>();
 		adapter = new TweetsAdapter(getActivity(), tweets);

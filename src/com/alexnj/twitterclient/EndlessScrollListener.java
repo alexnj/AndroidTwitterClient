@@ -7,8 +7,12 @@ import android.widget.AbsListView.OnScrollListener;
 public abstract class EndlessScrollListener implements OnScrollListener {
 	private int visibleThreshold = 5;
 	private int lastRequested = 0;
-
+	
     public EndlessScrollListener() {
+    }
+    
+    public void reset() {
+    	lastRequested = 0;
     }
 
     @Override
