@@ -25,16 +25,28 @@ import com.loopj.android.http.RequestParams;
 public class TwitterClient extends OAuthBaseClient {
     public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
     public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
-    public static final String REST_CONSUMER_KEY = "";       // Change this
-    public static final String REST_CONSUMER_SECRET = ""; // Change this
     public static final String REST_CALLBACK_URL = "oauth://TwitterClient"; // Change this (here and in manifest)
     
     public TwitterClient(Context context) {
-        super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
+        super(context, TwitterApi.class, REST_URL, 
+        		context.getString(R.string.consumer_key), context.getString(R.string.consumer_secret), 
+        		REST_CALLBACK_URL);
     }
     
-    public void getHomeTimeline(AsyncHttpResponseHandler handler) {
-        client.get(getApiUrl("statuses/home_timeline.json"), null, handler);
+    public void getHomeTimeline(AsyncHttpResponseHandler handler, String maxId) {
+    	RequestParams params = new RequestParams();
+    	if (!maxId.isEmpty()) {
+    		params.put("max_id", maxId);
+    	}
+		client.get(getApiUrl("statuses/home_timeline.json"), maxId.isEmpty() ? null : params, handler);
+    }
+    
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler, String maxId) {
+    	RequestParams params = new RequestParams();
+    	if (!maxId.isEmpty()) {
+    		params.put("max_id", maxId);
+    	}
+        client.get(getApiUrl("statuses/mentions_timeline.json"), maxId.isEmpty() ? null : params, handler);
     }
     
     public Boolean postUpdate(String update, AsyncHttpResponseHandler handler) {
