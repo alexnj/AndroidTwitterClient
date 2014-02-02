@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.activeandroid.query.From;
+import com.alexnj.twitterclient.EndlessScrollListener;
 import com.alexnj.twitterclient.R;
 import com.alexnj.twitterclient.TwitterClientApp;
 import com.alexnj.twitterclient.adapters.TweetsAdapter;
@@ -26,6 +27,7 @@ abstract public class TweetListFragment extends Fragment {
 	private ListView lvTimeline = null;
 	protected TweetsAdapter adapter = null;
 	protected ArrayList<Tweet> tweets = null; 
+	protected EndlessScrollListener scrollListener;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +36,18 @@ abstract public class TweetListFragment extends Fragment {
     	View view = inflater.inflate(R.layout.fragment_tweet_list, container, false);
     	lvTimeline = (ListView)view.findViewById(R.id.lvTimeline);
     	lvTimeline.setAdapter(adapter);
-    	refreshList();
-    	return view;
+
+    	this.scrollListener = new EndlessScrollListener( ) {
+			@Override
+		    public void onLoadMore( int start ) {
+				loadMore(lvTimeline.getCount()); 
+		    }
+        };		
+		lvTimeline.setOnScrollListener( this.scrollListener );
+
+    	loadMore(0);
+
+		return view;
     }
     
 
@@ -49,17 +61,27 @@ abstract public class TweetListFragment extends Fragment {
 		refreshHandler = new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonTweets) {
-				tweets.addAll( Tweet.fromJson(jsonTweets) );
-				adapter.notifyDataSetChanged();
-				if( tweets.size() > 0 ) {
-					Log.d( "DEBUG", String.valueOf( tweets.get(tweets.size()-1).getId() ) );
+				ArrayList<Tweet> newTweets = Tweet.fromJson(jsonTweets);
+				
+				if(newTweets.size()>0 ) {
+					if (tweets.size()>0) {
+						if (newTweets.get(newTweets.size()-1).getId()!=tweets.get(tweets.size()-1).getId()) {
+							tweets.addAll(newTweets);
+							adapter.notifyDataSetChanged();						
+						}
+					}
+					else {
+						tweets.addAll(newTweets);
+						adapter.notifyDataSetChanged();						
+					}
 				}
-
+				
 				Log.d("DEBUG", jsonTweets.toString());
 			}
 		};
+		
 	}
 
-	abstract public void refreshList();
+	abstract public void loadMore(int count);
     
 }

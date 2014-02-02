@@ -5,7 +5,7 @@ import com.alexnj.twitterclient.TwitterClientApp;
 public class MentionsTweetListFragment extends TweetListFragment {
 
 	@Override
-	public void refreshList() {
+	public void loadMore(int count) {
 		TwitterClientApp.getRestClient().getMentionsTimeline( this.refreshHandler, "" );
 	}
 
