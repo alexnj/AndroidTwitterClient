@@ -8,7 +8,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_back">Back</string>
     <string name="login_label">Log in</string>
-    
+    <string name="action_user">Profile</string>
     <string name="tweet_hint">What\'s your update?</string>
     
     <string name="error_empty_tweet">Oops! Tweet is empty.</string>
@@ -16,8 +16,10 @@
     
     <string name="title_activity_compose">Compose tweet</string>
     <string name="title_activity_timeline">Your timeline</string>
+    <string name="title_activity_user_profile">User profile</string>
     
     <string name="timeline_home">Home</string>
+    
     <string name="timeline_mentions">Mentions</string>
 
 </resources>

@@ -51,6 +51,10 @@
             android:name="com.alexnj.twitterclient.activities.ComposeActivity"
             android:label="@string/title_activity_compose" >
         </activity>
+        <activity
+            android:name="com.alexnj.twitterclient.activities.UserActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
     </application>
 
 </manifest>

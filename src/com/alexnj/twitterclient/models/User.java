@@ -1,5 +1,7 @@
 package com.alexnj.twitterclient.models;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,7 +10,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name="Users")
-public class User extends Model {
+public class User extends Model implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7701926656570381811L;
+
 	@Column(name="Name")
 	private String name;
 	
@@ -73,6 +80,10 @@ public class User extends Model {
         }
         return u;
     }
-
+    
+    @Override
+	public String toString() {
+		return "(USER: Name:"+name+")";
+	}
 
 }

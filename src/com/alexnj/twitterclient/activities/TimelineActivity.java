@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,11 +14,12 @@ import com.alexnj.twitterclient.SupportFragmentTabListener;
 import com.alexnj.twitterclient.fragments.HomeTweetListFragment;
 import com.alexnj.twitterclient.fragments.MentionsTweetListFragment;
 import com.alexnj.twitterclient.fragments.TweetListFragment;
+import com.alexnj.twitterclient.models.Tweet;
 
-public class TimelineActivity extends ActionBarActivity {
+public class TimelineActivity extends ActionBarActivity implements TweetListFragment.OnTweetClickedListener {
 	
 	public static final int COMPOSE_INTENT = 1;
-	
+	public static final int USER_PROFILE_INTENT = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,19 @@ public class TimelineActivity extends ActionBarActivity {
 		startActivityForResult(i,COMPOSE_INTENT);
 	}
 	
+	public void onClickUserProfile() {
+		Intent i = new Intent(this, UserActivity.class);
+		startActivityForResult(i,USER_PROFILE_INTENT);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.action_compose:
 	        	onClickCompose();
+	            return true;
+	        case R.id.action_user:
+	        	onClickUserProfile();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -91,5 +101,12 @@ public class TimelineActivity extends ActionBarActivity {
                         "second", MentionsTweetListFragment.class));
         actionBar.addTab(tab2);
     }
+
+	@Override
+	public void onTweetClicked(Tweet tweet) {
+		Intent i = new Intent(this, UserActivity.class);
+		i.putExtra("User", tweet.getUser());
+		startActivity(i);		
+	}
 
 }

@@ -82,4 +82,9 @@ public class Tweet extends Model {
 
 		return tweets;
 	}
+
+	@Override
+	public String toString() {
+		return "(TWEET: Body:"+body+", User:"+user.toString()+")";
+	}
 }
