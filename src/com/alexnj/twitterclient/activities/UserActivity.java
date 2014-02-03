@@ -38,7 +38,6 @@ public class UserActivity extends FragmentActivity implements TweetListFragment.
 			user = new User();
 		}
 		
-		
 		Bundle args = new Bundle();
         args.putSerializable("User", user);
 

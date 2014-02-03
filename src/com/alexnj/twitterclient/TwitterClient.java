@@ -51,6 +51,7 @@ public class TwitterClient extends OAuthBaseClient {
     public void getUserInfo(AsyncHttpResponseHandler handler, String screenName) {
     	RequestParams params = new RequestParams();
     	if (!screenName.isEmpty()) {
+    		params.put("screen_name", screenName);
     		client.get(getApiUrl("users/show.json"), params, handler);
     	}
     	else {
