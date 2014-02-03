@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.alexnj.twitterclient.TwitterClient;
 import com.alexnj.twitterclient.R;
+import com.alexnj.twitterclient.clients.TwitterClient;
 import com.codepath.oauth.OAuthLoginActivity;
 
 public class LoginActivity extends OAuthLoginActivity<TwitterClient> {

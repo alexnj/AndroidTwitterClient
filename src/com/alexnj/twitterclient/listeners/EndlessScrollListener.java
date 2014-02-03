@@ -1,4 +1,4 @@
-package com.alexnj.twitterclient;
+package com.alexnj.twitterclient.listeners;
 
 import android.util.Log;
 import android.widget.AbsListView;

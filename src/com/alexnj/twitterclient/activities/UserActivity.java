@@ -1,21 +1,15 @@
 package com.alexnj.twitterclient.activities;
 
-import java.util.ArrayList;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.activeandroid.ActiveAndroid;
 import com.alexnj.twitterclient.R;
 import com.alexnj.twitterclient.TwitterClientApp;
 import com.alexnj.twitterclient.fragments.TweetListFragment;

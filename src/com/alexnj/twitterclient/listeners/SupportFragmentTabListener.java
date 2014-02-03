@@ -1,4 +1,4 @@
-package com.alexnj.twitterclient;
+package com.alexnj.twitterclient.listeners;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alexnj.twitterclient.R;
-import com.alexnj.twitterclient.SupportFragmentTabListener;
 import com.alexnj.twitterclient.fragments.HomeTweetListFragment;
 import com.alexnj.twitterclient.fragments.MentionsTweetListFragment;
 import com.alexnj.twitterclient.fragments.TweetListFragment;
+import com.alexnj.twitterclient.listeners.SupportFragmentTabListener;
 import com.alexnj.twitterclient.models.Tweet;
 
 public class TimelineActivity extends ActionBarActivity implements TweetListFragment.OnTweetClickedListener {

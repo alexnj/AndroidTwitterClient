@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,10 +19,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.activeandroid.ActiveAndroid;
-import com.alexnj.twitterclient.EndlessScrollListener;
 import com.alexnj.twitterclient.R;
-import com.alexnj.twitterclient.activities.UserActivity;
 import com.alexnj.twitterclient.adapters.TweetsAdapter;
+import com.alexnj.twitterclient.listeners.EndlessScrollListener;
 import com.alexnj.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

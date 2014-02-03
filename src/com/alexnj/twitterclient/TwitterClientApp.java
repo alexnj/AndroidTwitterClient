@@ -2,6 +2,7 @@ package com.alexnj.twitterclient;
 
 import android.content.Context;
 
+import com.alexnj.twitterclient.clients.TwitterClient;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
