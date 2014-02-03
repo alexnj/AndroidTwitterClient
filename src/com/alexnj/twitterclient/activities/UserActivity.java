@@ -34,6 +34,10 @@ public class UserActivity extends FragmentActivity implements TweetListFragment.
 		setContentView(R.layout.activity_user);
 		
 		user = (User) getIntent().getSerializableExtra("User");
+		if (user==null) {
+			user = new User();
+		}
+		
 		
 		Bundle args = new Bundle();
         args.putSerializable("User", user);
@@ -45,11 +49,6 @@ public class UserActivity extends FragmentActivity implements TweetListFragment.
 		ft.replace(R.id.flContainer, fragment);
 		ft.commit();
 		
-		TextView tvName = (TextView) findViewById(R.id.tvName);
-		ImageView ivImage = (ImageView)findViewById(R.id.ivUser);
-		
-		tvName.setText(user.getName());
-		ImageLoader.getInstance().displayImage( user.getProfileImageUrl(), ivImage );
 		
 		JsonHttpResponseHandler userInfoHandler = new JsonHttpResponseHandler() {
 			@Override
@@ -60,11 +59,22 @@ public class UserActivity extends FragmentActivity implements TweetListFragment.
 				
 				TextView tvMeta = (TextView) findViewById(R.id.tvMeta);
 				setTitle("@"+user.getScreenName());
+				
+				TextView tvName = (TextView) findViewById(R.id.tvName);
+				tvName.setText(user.getName());
+				
 				tvMeta.setText(user.getFollowersCount() + " followers. " + user.getFriendsCount() + " friends.");
+				
+				ImageView ivImage = (ImageView)findViewById(R.id.ivUser);
+				
+				TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
+				tvDescription.setText(user.getDescription());
+				
+				ImageLoader.getInstance().displayImage( user.getProfileImageUrl(), ivImage );
 			}
 		};
 		
-		TwitterClientApp.getRestClient().getUserInfo( userInfoHandler, user.getScreenName());
+		TwitterClientApp.getRestClient().getUserInfo(userInfoHandler, user.getScreenName());
 	}
 
 	@Override

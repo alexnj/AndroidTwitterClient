@@ -21,6 +21,9 @@ public class UserTweetListFragment extends TweetListFragment {
 		if (tweets.size() > 0 && count > 0) {
 			lastId = String.valueOf( tweets.get(count-1).getTweetId()-1 );
 		}
+
+		Log.d("DEBUG", "Usernnn" + user.getScreenName().toString());
+		
 		TwitterClientApp.getRestClient().getUserTimeline( this.refreshHandler, user.getScreenName(), lastId );
 	}
 }
