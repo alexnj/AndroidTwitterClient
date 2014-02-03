@@ -1,9 +1,9 @@
 package com.alexnj.twitterclient.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.activeandroid.query.From;
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
 import com.alexnj.twitterclient.EndlessScrollListener;
 import com.alexnj.twitterclient.R;
-import com.alexnj.twitterclient.TwitterClientApp;
 import com.alexnj.twitterclient.adapters.TweetsAdapter;
 import com.alexnj.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -50,6 +50,7 @@ abstract public class TweetListFragment extends Fragment {
 	}
 	
 	public void refreshTimeline() {
+		clearList();
 		loadMore(0);
 	}
 	
@@ -62,6 +63,7 @@ abstract public class TweetListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
     		Bundle savedInstanceState) {
+
     	// Defines the xml file for the fragment
     	View view = inflater.inflate(R.layout.fragment_tweet_list, container, false);
     	lvTimeline = (ListView)view.findViewById(R.id.lvTimeline);
@@ -73,6 +75,7 @@ abstract public class TweetListFragment extends Fragment {
 				loadMore(lvTimeline.getCount()); 
 		    }
         };		
+        
 		lvTimeline.setOnScrollListener( this.scrollListener );
 
     	loadMore(0);
@@ -86,27 +89,47 @@ abstract public class TweetListFragment extends Fragment {
 		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
 		
-		
 		tweets = new ArrayList<Tweet>();
 		adapter = new TweetsAdapter(getActivity(), tweets);
+//		
+//		List<Tweet> offlineTweets = new Select().from(Tweet.class).execute();
+//		Log.d("DEBUG", "loaded: "+offlineTweets.toString());
+//		for (Tweet tweet : offlineTweets) {
+//			tweets.add(tweet);
+//			Log.d( "DEBUG", tweet.toString());
+//		}
+//
+//		adapter.notifyDataSetChanged();
+		
 		refreshHandler = new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonTweets) {
 				ArrayList<Tweet> newTweets = Tweet.fromJson(jsonTweets);
 				
-				if(newTweets.size()>0 ) {
-					if (tweets.size()>0) {
-						if (newTweets.get(newTweets.size()-1).getId()!=tweets.get(tweets.size()-1).getId()) {
-							tweets.addAll(newTweets);
-							adapter.notifyDataSetChanged();						
-						}
-					}
-					else {
-						tweets.addAll(newTweets);
-						adapter.notifyDataSetChanged();						
+				if (newTweets.isEmpty()) {
+					return;
+				}
+				
+				if (tweets.size()>0) {
+					if (newTweets.get(newTweets.size()-1).getTweetId()==tweets.get(tweets.size()-1).getTweetId()) {
+						return;
 					}
 				}
 				
+				ActiveAndroid.beginTransaction();
+				try {
+					for (Tweet tweet : newTweets) {
+						tweets.add(tweet);
+						tweet.save();
+					}
+					ActiveAndroid.setTransactionSuccessful();
+				} finally {
+                    ActiveAndroid.endTransaction();
+                }
+
+				
+				adapter.notifyDataSetChanged();
+			
 				Log.d("DEBUG", jsonTweets.toString());
 			}
 		};

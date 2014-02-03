@@ -12,8 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alexnj.twitterclient.models.Tweet;
 import com.alexnj.twitterclient.R;
+import com.alexnj.twitterclient.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetsAdapter extends ArrayAdapter<Tweet> {
@@ -35,6 +35,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
 		ImageView ivImage = (ImageView)view.findViewById(R.id.ivUser);
 		TextView  tvName  = (TextView) view.findViewById(R.id.tvName);
 		TextView  tvBody  = (TextView) view.findViewById(R.id.tvBody);
+		
 		ImageLoader.getInstance().displayImage( tweet.getUser().getProfileImageUrl(), ivImage );
 		
 		tvName.setText(Html.fromHtml(tweet.getUser().getName()));

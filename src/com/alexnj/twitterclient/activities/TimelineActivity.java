@@ -1,28 +1,18 @@
 package com.alexnj.twitterclient.activities;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.alexnj.twitterclient.R;
 import com.alexnj.twitterclient.SupportFragmentTabListener;
-import com.alexnj.twitterclient.TwitterClientApp;
-import com.alexnj.twitterclient.adapters.TweetsAdapter;
 import com.alexnj.twitterclient.fragments.HomeTweetListFragment;
 import com.alexnj.twitterclient.fragments.MentionsTweetListFragment;
 import com.alexnj.twitterclient.fragments.TweetListFragment;
-import com.alexnj.twitterclient.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends ActionBarActivity {
 	
@@ -83,7 +73,7 @@ public class TimelineActivity extends ActionBarActivity {
 
         Tab tab1 = actionBar
             .newTab()
-            .setText("First")
+            .setText(R.string.timeline_home)
             .setIcon(R.drawable.ic_action_compose)
             .setTag("HomeTimelineFragment")
             .setTabListener(new SupportFragmentTabListener<HomeTweetListFragment>(R.id.flContainer, this,
@@ -94,7 +84,7 @@ public class TimelineActivity extends ActionBarActivity {
 
         Tab tab2 = actionBar
             .newTab()
-            .setText("Second")
+            .setText(R.string.timeline_mentions)
             .setIcon(R.drawable.ic_action_refresh)
             .setTag("MentionsTimelineFragment")
             .setTabListener(new SupportFragmentTabListener<MentionsTweetListFragment>(R.id.flContainer, this,

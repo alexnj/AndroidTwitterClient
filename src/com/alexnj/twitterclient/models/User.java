@@ -3,20 +3,38 @@ package com.alexnj.twitterclient.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name="Users")
+public class User extends Model {
+	@Column(name="Name")
 	private String name;
+	
+	@Column(name="UserId")
 	private long uid;
+	
+	@Column(name="ScreenName")
 	private String screenName;
+	
+	@Column(name="ProfileImageUrl")
 	private String profileImageUrl;
+	
+	@Column(name="TweetCount")
 	private int numTweets;
+	
+	@Column(name="FollowerCount")
 	private int followersCount;
+	
+	@Column(name="FriendCount")
 	private int friendsCount;
 	
     public String getName() {
         return name;
     }
 
-    public long getId() {
+    public long getUserId() {
         return uid;
     }
 

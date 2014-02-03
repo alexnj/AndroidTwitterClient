@@ -16,5 +16,8 @@
     
     <string name="title_activity_compose">Compose tweet</string>
     <string name="title_activity_timeline">Your timeline</string>
+    
+    <string name="timeline_home">Home</string>
+    <string name="timeline_mentions">Mentions</string>
 
 </resources>

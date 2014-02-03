@@ -1,12 +1,10 @@
 package com.alexnj.twitterclient.activities;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import com.alexnj.twitterclient.R;
 import com.alexnj.twitterclient.TwitterClientApp;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ComposeActivity extends Activity {
