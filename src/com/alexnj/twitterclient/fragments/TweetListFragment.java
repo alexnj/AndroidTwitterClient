@@ -1,6 +1,7 @@
 package com.alexnj.twitterclient.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 
@@ -19,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
 import com.alexnj.twitterclient.R;
 import com.alexnj.twitterclient.adapters.TweetsAdapter;
 import com.alexnj.twitterclient.listeners.EndlessScrollListener;
@@ -34,6 +36,8 @@ abstract public class TweetListFragment extends Fragment {
 	protected EndlessScrollListener scrollListener;
 	private OnTweetClickedListener tweetClicklistener;
 
+	public abstract String getSerializationTag();
+	
 	// Define the events that the fragment will use to communicate
 	public interface OnTweetClickedListener {
 		public void onTweetClicked(Tweet tweet);
@@ -119,15 +123,17 @@ abstract public class TweetListFragment extends Fragment {
 
 		tweets = new ArrayList<Tweet>();
 		adapter = new TweetsAdapter(getActivity(), tweets);
-		//
-		// List<Tweet> offlineTweets = new Select().from(Tweet.class).execute();
-		// Log.d("DEBUG", "loaded: "+offlineTweets.toString());
-		// for (Tweet tweet : offlineTweets) {
-		// tweets.add(tweet);
-		// Log.d( "DEBUG", tweet.toString());
-		// }
-		//
-		// adapter.notifyDataSetChanged();
+		String serializationTag = getSerializationTag();
+		
+		if (serializationTag!=null) {
+			List<Tweet> offlineTweets = new Select().from(Tweet.class).where("Tag = ?", serializationTag).execute();
+
+			for (Tweet tweet : offlineTweets) {
+				tweets.add(tweet);
+			}
+			
+			adapter.notifyDataSetChanged();
+		}
 
 		refreshHandler = new JsonHttpResponseHandler() {
 			@Override
@@ -139,21 +145,28 @@ abstract public class TweetListFragment extends Fragment {
 				}
 
 				if (tweets.size() > 0) {
-					if (newTweets.get(newTweets.size() - 1).getTweetId() == tweets
-							.get(tweets.size() - 1).getTweetId()) {
+					if (newTweets.get(newTweets.size() - 1).getTweetId() == 
+							tweets.get(tweets.size() - 1).getTweetId()) {
 						return;
 					}
 				}
 
-				ActiveAndroid.beginTransaction();
-				try {
-					for (Tweet tweet : newTweets) {
-						tweets.add(tweet);
-						tweet.save();
+				String serializationTag = getSerializationTag();
+				
+				for (Tweet tweet : newTweets) {
+					tweets.add(tweet);
+					
+					if (serializationTag!=null) {
+						try {
+							tweet.setSerializationTag(serializationTag);
+							ActiveAndroid.beginTransaction();				
+							tweet.getUser().save();
+							tweet.save();
+							ActiveAndroid.setTransactionSuccessful();
+						} finally {
+							ActiveAndroid.endTransaction();
+						}
 					}
-					ActiveAndroid.setTransactionSuccessful();
-				} finally {
-					ActiveAndroid.endTransaction();
 				}
 
 				adapter.notifyDataSetChanged();

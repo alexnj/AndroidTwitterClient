@@ -5,6 +5,8 @@ import com.alexnj.twitterclient.TwitterClientApp;
 
 public class HomeTweetListFragment extends TweetListFragment {
 
+	
+	
 	@Override
 	public void loadMore(int count) {
 		String lastId = "";
@@ -12,6 +14,11 @@ public class HomeTweetListFragment extends TweetListFragment {
 			lastId = String.valueOf( tweets.get(count-1).getTweetId()-1 );
 		}
 		TwitterClientApp.getRestClient().getHomeTimeline( this.refreshHandler, lastId );
+	}
+
+	@Override
+	public String getSerializationTag() {
+		return "homelist";
 	}
 
 }

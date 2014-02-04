@@ -26,6 +26,7 @@
 
         <activity
             android:name="com.alexnj.twitterclient.activities.LoginActivity"
+            android:noHistory="true"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

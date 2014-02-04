@@ -1,6 +1,7 @@
 package com.alexnj.twitterclient.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,5 +99,9 @@ public class User extends Model implements Serializable {
 	public String toString() {
 		return "(USER: Name:"+name+")";
 	}
+    
+    public List<Tweet> tweets() {
+        return getMany(Tweet.class, "User");
+    }    
 
 }

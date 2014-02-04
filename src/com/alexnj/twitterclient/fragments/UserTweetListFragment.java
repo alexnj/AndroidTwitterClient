@@ -26,4 +26,9 @@ public class UserTweetListFragment extends TweetListFragment {
 		
 		TwitterClientApp.getRestClient().getUserTimeline( this.refreshHandler, user.getScreenName(), lastId );
 	}
+
+	@Override
+	public String getSerializationTag() {
+		return null;
+	}
 }

@@ -12,4 +12,10 @@ public class MentionsTweetListFragment extends TweetListFragment {
 		}
 		TwitterClientApp.getRestClient().getMentionsTimeline( this.refreshHandler, lastId );
 	}
+
+	@Override
+	public String getSerializationTag() {
+		return "mentions";
+	}
+	
 }

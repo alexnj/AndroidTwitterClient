@@ -1,5 +1,6 @@
 package com.alexnj.twitterclient.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -11,7 +12,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "Tweet")
-public class Tweet extends Model {
+public class Tweet extends Model implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6185387492574160062L;
+
 	@Column(name = "Body")
 	private String body;
 
@@ -26,9 +32,16 @@ public class Tweet extends Model {
 
 	@Column(name = "User")
 	private User user;
-	
+
+	@Column(name = "Tag", index = true)
+	private String tag;
+
 	public User getUser() {
 		return user;
+	}
+	
+	public void setSerializationTag(String serializationTag) {
+		tag = serializationTag;
 	}
 
 	public String getBody() {
